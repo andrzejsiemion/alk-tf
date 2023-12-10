@@ -1,10 +1,10 @@
 resource "google_compute_instance" "alkdemo" {
   count        = var.instance_count
   name         = "alk-demo-${count.index}"
-  machine_type = "n1-standard-1"
-  zone         = "us-west1-a"
+  machine_type = var.gcp_machine_type
+  zone         = var.gcp_zone
 
-  tags = ["alk", "y2023"]
+  tags = ["alk", "y2023", "http-server"]
 
   boot_disk {
     initialize_params {
@@ -15,6 +15,7 @@ resource "google_compute_instance" "alkdemo" {
   network_interface {
 
     network = "default"
+    
     access_config {
       // for public ip
     }
